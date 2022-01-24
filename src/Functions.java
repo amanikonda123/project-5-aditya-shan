@@ -10,8 +10,6 @@ import processing.core.PApplet;
  */
 public final class Functions
 {
-    private static final Random rand = new Random();
-
     private static final int COLOR_MASK = 0xffffff;
     private static final int KEYED_IMAGE_MIN = 5;
     private static final int KEYED_RED_IDX = 2;
@@ -19,9 +17,6 @@ public final class Functions
     private static final int KEYED_BLUE_IDX = 4;
 
     private static final int PROPERTY_KEY = 0;
-
-    private static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
-            "dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
 
     public static final String SAPLING_KEY = "sapling";
     private static final int SAPLING_HEALTH_LIMIT = 5;
@@ -68,8 +63,6 @@ public final class Functions
     private static final int FAIRY_ANIMATION_PERIOD = 4;
     private static final int FAIRY_ACTION_PERIOD = 5;
 
-    public static final String STUMP_KEY = "stump";
-
     public static final String TREE_KEY = "tree";
     private static final int TREE_NUM_PROPERTIES = 7;
     private static final int TREE_ID = 1;
@@ -78,13 +71,6 @@ public final class Functions
     private static final int TREE_ANIMATION_PERIOD = 4;
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
-
-    public static final int TREE_ANIMATION_MAX = 600;
-    public static final int TREE_ANIMATION_MIN = 50;
-    public static final int TREE_ACTION_MAX = 1400;
-    public static final int TREE_ACTION_MIN = 1000;
-    public static final int TREE_HEALTH_MAX = 3;
-    public static final int TREE_HEALTH_MIN = 1;
 
 
 
@@ -586,10 +572,10 @@ public final class Functions
 //    }
 
 
-//    public static boolean adjacent(Point p1, Point p2) {
-//        return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) || (p1.y == p2.y
-//                && Math.abs(p1.x - p2.x) == 1);
-//    }
+    public static boolean adjacent(Point p1, Point p2) {
+        return (p1.getX() == p2.getX() && Math.abs(p1.getY() - p2.getY()) == 1) || (p1.getY() == p2.getY()
+                && Math.abs(p1.getX() - p2.getX()) == 1);
+    }
 
     public static int getNumFromRange(int max, int min)
     {

@@ -27,11 +27,6 @@ public final class Point
         return result;
     }
 
-    public static boolean adjacent(Point p1, Point p2) {
-        return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) || (p1.y == p2.y
-                && Math.abs(p1.x - p2.x) == 1);
-    }
-
     public int getX() {
         return this.x;
     }

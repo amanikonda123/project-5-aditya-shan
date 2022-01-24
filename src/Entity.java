@@ -8,6 +8,14 @@ import processing.core.PImage;
  */
 public final class Entity
 {
+    private static final String STUMP_KEY = "stump";
+    private static final int TREE_ANIMATION_MAX = 600;
+    private static final int TREE_ANIMATION_MIN = 50;
+    private static final int TREE_ACTION_MAX = 1400;
+    private static final int TREE_ACTION_MIN = 1000;
+    private static final int TREE_HEALTH_MAX = 3;
+    private static final int TREE_HEALTH_MIN = 1;
+
     private EntityKind kind;
     private String id;
     private Point position;
@@ -293,7 +301,7 @@ public final class Entity
         if (this.health <= 0) {
             Entity stump = Functions.createStump(this.id,
                     this.position,
-                    imageStore.getImageList(Functions.STUMP_KEY));
+                    imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
@@ -315,7 +323,7 @@ public final class Entity
         if (this.health <= 0) {
             Entity stump = Functions.createStump(this.id,
                     this.position,
-                    imageStore.getImageList(Functions.STUMP_KEY));
+                    imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
@@ -329,9 +337,9 @@ public final class Entity
         {
             Entity tree = Functions.createTree("tree_" + this.id,
                     this.position,
-                    Functions.getNumFromRange(Functions.TREE_ACTION_MAX, Functions.TREE_ACTION_MIN),
-                    Functions.getNumFromRange(Functions.TREE_ANIMATION_MAX, Functions.TREE_ANIMATION_MIN),
-                    Functions.getNumFromRange(Functions.TREE_HEALTH_MAX, Functions.TREE_HEALTH_MIN),
+                    Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
+                    Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),
+                    Functions.getNumFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),
                     imageStore.getImageList(Functions.TREE_KEY));
 
             world.removeEntity(this);
@@ -351,7 +359,7 @@ public final class Entity
             Entity target,
             EventScheduler scheduler)
     {
-        if (Point.adjacent(this.position, target.position)) {
+        if (Functions.adjacent(this.position, target.position)) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
@@ -376,7 +384,7 @@ public final class Entity
             Entity target,
             EventScheduler scheduler)
     {
-        if (Point.adjacent(this.position, target.position)) {
+        if (Functions.adjacent(this.position, target.position)) {
             this.resourceCount += 1;
             target.health--;
             return true;
@@ -401,7 +409,7 @@ public final class Entity
             Entity target,
             EventScheduler scheduler)
     {
-        if (Point.adjacent(this.position, target.position)) {
+        if (Functions.adjacent(this.position, target.position)) {
             return true;
         }
         else {

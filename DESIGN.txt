@@ -1,0 +1,69 @@
+1.) getCurrentImage() -> I felt like instead of checking if 'entity' was a 'Background' object or an 'Entity' object, it
+would've been more organized if I split the method and overloaded it within the 'Entity' and 'Background' classes separately.
+
+2.) getAnimationPeriod() -> I felt like this clearly belongs in the 'Entity' class.
+
+3.) nextImage() -> I felt like this clearly belongs in the 'Entity' class.
+
+4.) executeAction(), executeActivityAction(), executeAnimationAction -> I felt like this clearly belongs in the 'Action'
+class.
+
+5.) All the 'execute___Activity' methods, scheduleActions() -> I could see this being moved to several classes but I put
+it in the 'Entity' class because it seemed like it would be a behavior of an 'Entity' object.
+
+6.) All the 'transform___' methods -> I could see this being moved to several classes but I put it in the 'Entity'
+class because it seemed like it would be a behavior of an 'Entity' object.
+
+7.) All the 'moveTo___' methods -> I could see this being moved to several classes but I put it in the 'Entity'
+class because it seemed like it would be a behavior of an 'Entity' object.
+
+8.) nextPositionDude(), nextPositionFairy() -> I could see this being moved to several classes but I put it in the
+'Entity' class because it seemed like it would be a behavior of an 'Entity' object.
+
+9.) adjacent() -> I can see this method being kept in the 'Point' class it seemed like it describes the behavior of a
+Point object regarding another Point. But I can also see it being moved to the 'Entity' class as a private helper method
+because it is only called within the 'Entity' class. However, I chose to move it to 'Functions' because it seems like
+it's functionality is rather general, matching with the purpose of 'Functions.'
+
+10.) getNumFromRange() -> This method seemed VERY general and I felt like ti clearly belonged in 'Functions.'
+
+11.) scheduleEvent(), unscheduleAllEvents(), removePendingEvent(), updateOnTime() -> All of these methods seemed to
+describe the behavior of the 'EventScheduler' class, further proven by all of them having an 'EventScheduler' object
+as arguments.
+
+12.) getImages(), getImageList() -> Both of these are simply getter methods for the 'ImageStore' class.
+
+13.) loadImages(), processImageLine(), getImages(), setAlpha() -> processImageLine() is a helper function for loadImages()
+so these two had to be together. Additionally, getImages() and setAlpha() are helper functions for processImageLine() so
+all 4 of these methods must be together. I could see these being in the 'ImageStore' class by importing them but for simplicity
+I didn't go that route and simply left them in the more general 'Functions' class.
+
+14.) shift(), contains() -> shift() obviously belonged in the 'Viewport' class and the functionality of contains()
+matches better with that of 'Viewport' over 'Point.'
+
+15.) load(), processLine(), all of the 'parse___()' methods -> I can see all of these methods (which are helper functions
+of load()) in the 'WorldModel' class, but the reason I didn't put them there is because they are only called once when
+the program runs in 'VirtualWorld.' So, it felt like they didn't belong to any one instance of 'WorldModel' so I left them in
+'Functions.'
+
+16.) tryAddEntity(), withinBounds(), isOccupied(), nearestEntity(), findNearest(), addEntity(), moveEntity(), removeEntity(),
+removeEntityAt() -> These methods all describe behaviors of the 'WorldModel' class. I feel like these are similar to the
+methods in 15.) but these DO belong to instances of 'WorldModel.'
+
+17.) distanceSquared() -> Same reasoning for adjacent() but for 'WorldModel' instead of 'Entity'
+
+18.) All the getter and setter methods for Background, BackgroundCell, Occupant and OccupancyCell -> I put these methods
+in the 'WorldModel' class because I thought it matches its attributes well.
+
+19.) viewportToWorld(), worldToViewport() -> I felt like these obviously belonged in 'Viewport.'
+
+20.) clamp() -> This method could be made into a private helper method in 'WorldView' because it is only called there,
+but I thought its purpose was very general and didn't pertain to any class.
+
+21.) shiftView(), all the 'draw___' methods -> These methods belong in 'Worldview' because most of them are helper functions
+for each other, so it would only make sense to put all of them in the class they are being called in.
+
+22.) All the 'create___' methods -> For these methods, I was debating putting them in 'WorldModel' or keeping them in
+'Functions.' I opted to leave them in 'Functions' because they are used by all sorts of other methods from other classes
+so I figured it would be hard to group them in any one class other than 'Functions.'
+
