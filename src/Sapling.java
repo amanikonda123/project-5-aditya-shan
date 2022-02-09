@@ -65,14 +65,12 @@ public class Sapling implements Plant, TransformableEntity {
     }
 
     public Action createAnimationAction(int repeatCount) {
-        return new Action(ActionKind.ANIMATION, this, null, null,
-                repeatCount);
+        return new Animation(this, repeatCount);
     }
 
     public Action createActivityAction(
-            WorldModel world, ImageStore imageStore)
-    {
-        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
+            WorldModel world, ImageStore imageStore) {
+        return new Activity(this, world, imageStore);
     }
 
     public void scheduleActions(
