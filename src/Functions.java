@@ -222,7 +222,7 @@ public final class Functions
             Point pt = new Point(Integer.parseInt(properties[SAPLING_COL]),
                     Integer.parseInt(properties[SAPLING_ROW]));
             String id = properties[SAPLING_ID];
-            int health = Integer.parseInt(properties[SAPLING_HEALTH]);
+            //int health = Integer.parseInt(properties[SAPLING_HEALTH]);
             Entity entity = createSapling(id, pt, imageStore.getImageList(SAPLING_KEY));
             world.tryAddEntity(entity);
         }

@@ -109,7 +109,7 @@ public class DudeNotFull implements MovableEntity, TransformableEntity {
     {
         if (Functions.adjacent(this.position, target.getPosition())) {
             if (target instanceof Plant) {
-                resourceCount++;
+                this.resourceCount++;
                 ((Plant) target).setHealth(((Plant) target).getHealth() - 1);
             }
             return true;
