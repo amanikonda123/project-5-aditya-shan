@@ -70,13 +70,13 @@ public final class WorldModel
     }
 
     public Optional<Entity> findNearest(
-            Point pos, List<EntityKind> kinds)
+            Point pos, List<Class> kinds)
     {
         List<Entity> ofType = new LinkedList<>();
-        for (EntityKind kind: kinds)
+        for (Class kind: kinds)
         {
             for (Entity entity : this.entities) {
-                if (entity.getKind() == kind) {
+                if (entity.getClass() == kind) {
                     ofType.add(entity);
                 }
             }

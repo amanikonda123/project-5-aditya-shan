@@ -38,50 +38,39 @@ public final class Action
     public void executeAnimationAction(
             EventScheduler scheduler)
     {
-        this.entity.nextImage();
+        ((AnimatedEntity) this.entity).nextImage();
 
         if (this.repeatCount != 1) {
             scheduler.scheduleEvent(this.entity,
-                    Functions.createAnimationAction(this.entity,
+                    ((AnimatedEntity) this.entity).createAnimationAction(
                             Math.max(this.repeatCount - 1,
                                     0)),
-                    this.entity.getAnimationPeriod());
+                    ((AnimatedEntity) this.entity).getAnimationPeriod());
         }
     }
 
     public void executeActivityAction(
             EventScheduler scheduler)
     {
-        switch (this.entity.getKind()) {
-            case SAPLING:
-                this.entity.executeSaplingActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case TREE:
-                this.entity.executeTreeActivity( this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case FAIRY:
-                this.entity.executeFairyActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case DUDE_NOT_FULL:
-                this.entity.executeDudeNotFullActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case DUDE_FULL:
-                this.entity.executeDudeFullActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            default:
-                throw new UnsupportedOperationException(String.format(
-                        "executeActivityAction not supported for %s",
-                        this.entity.getKind()));
+        if (Sapling.class.equals(this.entity.getClass())) {
+            ((Sapling) this.entity).executeActivity(this.world,
+                    this.imageStore, scheduler);
+        } else if (Tree.class.equals(this.entity.getClass())) {
+            ((Tree) this.entity).executeActivity(this.world,
+                    this.imageStore, scheduler);
+        } else if (Fairy.class.equals(this.entity.getClass())) {
+            ((Fairy) this.entity).executeActivity(this.world,
+                    this.imageStore, scheduler);
+        } else if (DudeNotFull.class.equals(this.entity.getClass())) {
+            ((DudeNotFull) this.entity).executeActivity(this.world,
+                    this.imageStore, scheduler);
+        } else if (DudeFull.class.equals(this.entity.getClass())) {
+            ((DudeFull) this.entity).executeActivity(this.world,
+                    this.imageStore, scheduler);
+        } else {
+            throw new UnsupportedOperationException(String.format(
+                    "executeActivityAction not supported for %s",
+                    this.entity.getClass()));
         }
     }
 
