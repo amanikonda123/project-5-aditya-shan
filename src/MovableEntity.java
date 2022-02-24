@@ -15,16 +15,28 @@ public abstract class MovableEntity extends ExecutableEntity {
         super(id, position, images, imageIndex, animationPeriod, actionPeriod);
     }
 
-    public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
-        Point nextPos = this.nextPosition(world, target.getPosition());
+    public boolean moveTo(
+            WorldModel world,
+            Entity target,
+            EventScheduler scheduler) {
+        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
+            return _moveToHelper(world, target, scheduler);
+        } else {
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
-        if (!this.getPosition().equals(nextPos)) {
-            Optional<Entity> occupant = world.getOccupant(nextPos);
-            occupant.ifPresent(scheduler::unscheduleAllEvents);
-            world.moveEntity(this, nextPos);
+            if (!this.getPosition().equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant(nextPos);
+                occupant.ifPresent(scheduler::unscheduleAllEvents);
+
+                world.moveEntity(this, nextPos);
+            }
+            return false;
         }
-        return false;
     }
+
+    protected abstract boolean _moveToHelper(WorldModel world,
+                                     Entity target,
+                                     EventScheduler scheduler);
 
     public Point nextPosition(
             WorldModel world, Point destPos)

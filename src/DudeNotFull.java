@@ -41,21 +41,15 @@ public class DudeNotFull extends Dude {
     }
 
 
-    public boolean moveTo(
-            WorldModel world,
-            Entity target,
-            EventScheduler scheduler)
+    protected boolean _moveToHelper(WorldModel world,
+                                    Entity target,
+                                    EventScheduler scheduler)
     {
-        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
-            if (target instanceof Plant) {
-                this.resourceCount++;
-                ((Plant) target).setHealth(((Plant) target).getHealth() - 1);
-            }
-            return true;
+        if (target instanceof Plant) {
+            this.resourceCount++;
+            ((Plant) target).setHealth(((Plant) target).getHealth() - 1);
         }
-        else {
-            return super.moveTo(world, target, scheduler);
-        }
+        return true;
     }
 
     protected Entity _transformHelper() {

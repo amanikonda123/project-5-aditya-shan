@@ -41,19 +41,13 @@ public class Fairy extends MovableEntity {
         super.executeActivity(world, imageStore, scheduler);
     }
 
-    public boolean moveTo(
-            WorldModel world,
-            Entity target,
-            EventScheduler scheduler)
+    protected boolean _moveToHelper(WorldModel world,
+                                             Entity target,
+                                             EventScheduler scheduler)
     {
-        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-            return true;
-        }
-        else {
-            return super.moveTo(world, target, scheduler);
-        }
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
+        return true;
     }
 
     protected boolean _nextPositionHelper(WorldModel world, Point newPos, int dimension) {

@@ -37,15 +37,11 @@ public class DudeFull extends Dude {
         }
     }
 
-    public boolean moveTo(
-            WorldModel world,
-            Entity target,
-            EventScheduler scheduler) {
-        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
-            return true;
-        } else {
-            return super.moveTo(world, target, scheduler);
-        }
+    protected boolean _moveToHelper(WorldModel world,
+                                    Entity target,
+                                    EventScheduler scheduler)
+    {
+        return true;
     }
 
     protected Entity _transformHelper() {

@@ -7,9 +7,9 @@ import processing.core.PImage;
  * different kinds of entities that exist.
  */
 public abstract class Entity {
-    private String id;
+    private final String id;
     private Point position;
-    private List<PImage> images;
+    private final List<PImage> images;
     private int imageIndex;
 
     public Entity(

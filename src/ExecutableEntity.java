@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class ExecutableEntity extends AnimatedEntity {
 
-    private int actionPeriod;
+    private final int actionPeriod;
 
     public ExecutableEntity(String id,
                           Point position,
