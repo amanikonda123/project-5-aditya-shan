@@ -5,81 +5,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class DudeNotFull implements MovableEntity, TransformableEntity {
+public class DudeNotFull extends Dude {
 
-    private String id;
-    private Point position;
-    private int actionPeriod;
-    private int animationPeriod;
     private int resourceCount;
-    private int resourceLimit;
-    private List<PImage> images;
-    private int imageIndex;
 
     public DudeNotFull(
             String id,
             Point position,
-            int actionPeriod,
-            int animationPeriod,
-            int resourceCount,
-            int resourceLimit,
             List<PImage> images,
-            int imageIndex)
+            int imageIndex,
+            int animationPeriod,
+            int actionPeriod,
+            int resourceLimit,
+            int resourceCount)
     {
-        this.id = id;
-        this.position = position;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
+        super(id, position, images, imageIndex, animationPeriod, actionPeriod, resourceLimit);
         this.resourceCount = resourceCount;
-        this.resourceLimit = resourceLimit;
-        this.images = images;
-        this.imageIndex = imageIndex;
-    }
-
-    public PImage getCurrentImage() {
-        return this.images.get(this.imageIndex);
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public Point getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Point p) {
-        this.position = p;
-    }
-
-    public int getAnimationPeriod() {
-        return this.animationPeriod;
-    }
-
-    public void nextImage() {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public Action createAnimationAction(int repeatCount) {
-        return new Animation(this, repeatCount);
-    }
-
-    public Action createActivityAction(
-            WorldModel world, ImageStore imageStore) {
-        return new Activity(this, world, imageStore);
-    }
-
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore)
-    {
-        scheduler.scheduleEvent(this,
-                this.createActivityAction(world, imageStore),
-                this.actionPeriod);
-        scheduler.scheduleEvent(this,
-                this.createAnimationAction(0),
-                this.getAnimationPeriod());
     }
 
     public void executeActivity(
@@ -88,16 +29,14 @@ public class DudeNotFull implements MovableEntity, TransformableEntity {
             EventScheduler scheduler)
     {
         Optional<Entity> target =
-                world.findNearest(this.position, new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
         if (!target.isPresent() || !this.moveTo(world,
                 target.get(),
                 scheduler)
                 || !this.transform(world, scheduler, imageStore))
         {
-            scheduler.scheduleEvent(this,
-                    this.createActivityAction(world, imageStore),
-                    this.actionPeriod);
+            super.executeActivity(world, imageStore, scheduler);
         }
     }
 
@@ -107,7 +46,7 @@ public class DudeNotFull implements MovableEntity, TransformableEntity {
             Entity target,
             EventScheduler scheduler)
     {
-        if (Functions.adjacent(this.position, target.getPosition())) {
+        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
             if (target instanceof Plant) {
                 this.resourceCount++;
                 ((Plant) target).setHealth(((Plant) target).getHealth() - 1);
@@ -115,58 +54,20 @@ public class DudeNotFull implements MovableEntity, TransformableEntity {
             return true;
         }
         else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
-
-            if (!this.position.equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
+            return super.moveTo(world, target, scheduler);
         }
     }
 
-    public Point nextPosition(
-            WorldModel world, Point destPos)
-    {
-        int horiz = Integer.signum(destPos.getX() - this.position.getX());
-        Point newPos = new Point(this.position.getX() + horiz, this.position.getY());
-
-        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class) {
-            int vert = Integer.signum(destPos.getY() - this.position.getY());
-            newPos = new Point(this.position.getX(), this.position.getY() + vert);
-
-            if (vert == 0 || world.isOccupied(newPos) &&  world.getOccupancyCell(newPos).getClass() != Stump.class) {
-                newPos = this.position;
-            }
+    protected Entity _transformHelper() {
+        Entity dudeFull = null;
+        if (this.resourceCount >= this.getResourceLimit()) {
+            dudeFull = Functions.createDudeFull(this.getId(),
+                    this.getPosition(), this.getActionPeriod(),
+                    this.getAnimationPeriod(),
+                    this.getResourceLimit(),
+                    this.getImages());
         }
 
-        return newPos;
-    }
-
-    public boolean transform(
-            WorldModel world,
-            EventScheduler scheduler,
-            ImageStore imageStore) {
-        if (this.resourceCount >= this.resourceLimit) {
-            Entity dudeFull = Functions.createDudeFull(this.id,
-                    this.position, this.actionPeriod,
-                    this.animationPeriod,
-                    this.resourceLimit,
-                    this.images);
-
-            world.removeEntity(this);
-            scheduler.unscheduleAllEvents(this);
-
-            world.addEntity(dudeFull);
-            ((DudeFull) dudeFull).scheduleActions(scheduler, world, imageStore);
-
-            return true;
-        }
-
-        return false;
+        return dudeFull;
     }
 }

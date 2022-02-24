@@ -1,4 +1,47 @@
-public interface MovableEntity extends ExecutableEntity {
-    boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler);
-    Point nextPosition(WorldModel world, Point destPos);
+import processing.core.PImage;
+
+import java.util.List;
+import java.util.Optional;
+
+public abstract class MovableEntity extends ExecutableEntity {
+
+    public MovableEntity(String id,
+                            Point position,
+                            List<PImage> images,
+                            int imageIndex,
+                            int animationPeriod,
+                            int actionPeriod)
+    {
+        super(id, position, images, imageIndex, animationPeriod, actionPeriod);
+    }
+
+    public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+        Point nextPos = this.nextPosition(world, target.getPosition());
+
+        if (!this.getPosition().equals(nextPos)) {
+            Optional<Entity> occupant = world.getOccupant(nextPos);
+            occupant.ifPresent(scheduler::unscheduleAllEvents);
+            world.moveEntity(this, nextPos);
+        }
+        return false;
+    }
+
+    public Point nextPosition(
+            WorldModel world, Point destPos)
+    {
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+
+        if (_nextPositionHelper(world, newPos, horiz)) {
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+
+            if (_nextPositionHelper(world, newPos, vert)) {
+                newPos = this.getPosition();
+            }
+        }
+        return newPos;
+    }
+
+    protected abstract boolean _nextPositionHelper(WorldModel world, Point newPos, int dimension);
 }

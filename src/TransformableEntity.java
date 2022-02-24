@@ -1,3 +1,3 @@
-public interface TransformableEntity extends Entity {
+public interface TransformableEntity {
     boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
 }

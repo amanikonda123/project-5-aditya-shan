@@ -333,7 +333,7 @@ public final class Functions
     public static Entity createObstacle(
             String id, Point position, int animationPeriod, List<PImage> images)
     {
-        return new Obstacle(id, position, animationPeriod, images, 0);
+        return new Obstacle(id, position, images, 0, animationPeriod);
     }
 
     public static Entity createTree(
@@ -344,7 +344,7 @@ public final class Functions
             int health,
             List<PImage> images)
     {
-        return new Tree(id, position, actionPeriod, animationPeriod, health, images, 0);
+        return new Tree(id, position, images, 0, animationPeriod, actionPeriod, health);
     }
 
     public static Entity createStump(
@@ -361,8 +361,8 @@ public final class Functions
             Point position,
             List<PImage> images)
     {
-        return new Sapling(id, position, SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD,
-                0, SAPLING_HEALTH_LIMIT, images, 0);
+        return new Sapling(id, position, images, 0, SAPLING_ACTION_ANIMATION_PERIOD,
+                SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
     }
 
     public static Entity createFairy(
@@ -372,7 +372,7 @@ public final class Functions
             int animationPeriod,
             List<PImage> images)
     {
-        return new Fairy(id, position, actionPeriod, animationPeriod, images, 0);
+        return new Fairy(id, position, images, 0, animationPeriod, actionPeriod);
     }
 
     // need resource count, though it always starts at 0
@@ -384,8 +384,7 @@ public final class Functions
             int resourceLimit,
             List<PImage> images)
     {
-        return new DudeNotFull(id, position, actionPeriod, animationPeriod,0,
-                resourceLimit, images,0);
+        return new DudeNotFull(id, position, images, 0, animationPeriod, actionPeriod, resourceLimit, 0);
     }
 
     // don't technically need resource count ... full
@@ -396,7 +395,6 @@ public final class Functions
             int animationPeriod,
             int resourceLimit,
             List<PImage> images) {
-        return new DudeFull(id, position, actionPeriod, animationPeriod,
-                resourceLimit, images, 0);
+        return new DudeFull(id, position, images, 0, animationPeriod, actionPeriod, resourceLimit);
     }
 }
