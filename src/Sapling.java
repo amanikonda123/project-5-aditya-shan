@@ -11,7 +11,7 @@ public class Sapling extends Plant {
     private static final int TREE_HEALTH_MAX = 3;
     private static final int TREE_HEALTH_MIN = 1;
 
-    private int healthLimit;
+    private final int healthLimit;
 
     public Sapling(
             String id,

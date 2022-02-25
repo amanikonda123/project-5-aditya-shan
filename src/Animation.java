@@ -1,6 +1,6 @@
 public class Animation implements Action {
-    private Entity entity;
-    private int repeatCount;
+    private final Entity entity;
+    private final int repeatCount;
 
     public Animation(Entity entity, int repeatCount) {
         this.entity = entity;
@@ -9,14 +9,16 @@ public class Animation implements Action {
 
     public void executeAction(
             EventScheduler scheduler) {
-        ((AnimatedEntity) this.entity).nextImage();
 
-        if (this.repeatCount != 1) {
-            scheduler.scheduleEvent(this.entity,
-                    ((AnimatedEntity) this.entity).createAnimationAction(
-                            Math.max(this.repeatCount - 1,
-                                    0)),
-                    ((AnimatedEntity) this.entity).getAnimationPeriod());
+        if (this.entity instanceof AnimatedEntity) {
+            AnimatedEntity entity = (AnimatedEntity) this.entity;
+            entity.nextImage();
+
+            if (this.repeatCount != 1) {
+                scheduler.scheduleEvent(this.entity,
+                        (entity.createAnimationAction(Math.max(this.repeatCount - 1, 0))),
+                        (entity.getAnimationPeriod()));
+            }
         }
     }
 }
