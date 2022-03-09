@@ -18,9 +18,9 @@ public abstract class Dude extends MovableEntity implements TransformableEntity 
         this.resourceLimit = resourceLimit;
     }
 
-    protected boolean _nextPositionHelper(WorldModel world, Point newPos, int dimension) {
-        return dimension == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class;
-    }
+//    protected boolean _nextPositionHelper(WorldModel world, Point newPos, int dimension) {
+//        return dimension == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class;
+//    }
 
     public boolean transform(
             WorldModel world,

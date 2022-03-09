@@ -50,7 +50,7 @@ public class Fairy extends MovableEntity {
         return true;
     }
 
-    protected boolean _nextPositionHelper(WorldModel world, Point newPos, int dimension) {
-        return dimension == 0 || world.isOccupied(newPos);
-    }
+//    protected boolean _nextPositionHelper(WorldModel world, Point newPos, int dimension) {
+//        return dimension == 0 || world.isOccupied(newPos);
+//    }
 }

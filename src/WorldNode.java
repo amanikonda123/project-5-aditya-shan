@@ -1,9 +1,11 @@
+import java.util.Objects;
+
 public class WorldNode {
 
     private Point position;
-    private int actualDistanceFromStart;
-    private int estimatedDistanceToEnd;
-    private WorldNode prev;
+    private final int actualDistanceFromStart;
+    private final int estimatedDistanceToEnd;
+    private final WorldNode prev;
 
     public WorldNode(Point position, int actualDistanceFromStart, int estimatedDistanceToEnd, WorldNode prev) {
         this.position = position;
@@ -24,10 +26,12 @@ public class WorldNode {
         }
 
         WorldNode otherNode = (WorldNode) other;
-        return this.getF() == otherNode.getF();
+        return this.position != null && this.position.equals(otherNode.getPosition());
+        //this.getF() == otherNode.getF() &&
     }
 
     public int hashCode() {
+        //return Objects.hash(position.getX(), position.getY(), estimatedDistanceToEnd);
         int result = 1;
         result = result * 37 + ((this.position == null) ? 0 : this.position.hashCode());
         result = result * 37 + actualDistanceFromStart;

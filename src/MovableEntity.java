@@ -57,9 +57,10 @@ public abstract class MovableEntity extends ExecutableEntity {
         PathingStrategy ps = new AStarPathingStrategy();
         List<Point> path = ps.computePath(this.getPosition(),
                 destPos,
-                p -> !world.isOccupied(p),
-                (p1, p2) -> Functions.adjacent(p1, p2),
+                p -> world.withinBounds(p) && !world.isOccupied(p),
+                Functions::adjacent,
                 PathingStrategy.CARDINAL_NEIGHBORS);
+
         if (path.size() > 0) {
             return path.get(0);
         }
