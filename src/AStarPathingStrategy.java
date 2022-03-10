@@ -15,11 +15,9 @@ public class AStarPathingStrategy
     {
 
         PriorityQueue<WorldNode> openList = new PriorityQueue<>(Comparator.comparingInt(WorldNode::getF));
-        HashMap<Integer, WorldNode> openList2 = new HashMap<>();
         WorldNode startNode = new WorldNode(start, 0, calculateManhattanDistance(start, end), null);
 
         openList.add(startNode);
-        openList2.put(startNode.hashCode(), startNode);
 
         HashSet<Point> closedList = new HashSet<>();
         closedList.add(startNode.getPosition());
@@ -37,8 +35,6 @@ public class AStarPathingStrategy
 
         while (openList.size() != 0) {
             WorldNode current = openList.remove();
-            Point CURRENT_POINT = current.getPosition();
-            //openList2.remove(current.hashCode());
             if (withinReach.test(current.getPosition(), end)) {
                 endNode = current;
                 while(endNode != null) {
@@ -55,7 +51,6 @@ public class AStarPathingStrategy
                     .filter(n -> !closedList.contains(n.getPosition()))
                     .forEach(n -> {
                         updateActualDistanceFromStart(openList, n);
-                        //closedList.add(n.getPosition());
                     });
             closedList.add(current.getPosition());
         }
@@ -70,6 +65,7 @@ public class AStarPathingStrategy
 
     public void updateActualDistanceFromStart(PriorityQueue<WorldNode> openList, WorldNode n) {
         HashSet<WorldNode> openList2 = new HashSet<>(openList);
+        // could update openList2 whenever openList gets updated instead -> would be more efficient
         if (openList.contains(n)) {
             for (WorldNode node : openList2) {
                 if (node.getPosition().equals(n.getPosition()) &&
@@ -83,21 +79,4 @@ public class AStarPathingStrategy
             openList.add(n);
         }
     }
-
-
-//    public void updateActualDistanceFromStart2(PriorityQueue<WorldNode> openList, HashMap<Integer, WorldNode> openList2, WorldNode n) {
-//        if (openList.contains(n)) {
-//            WorldNode existingNode = openList2.get(n.hashCode());
-//            if (existingNode.getActualDistanceFromStart() > n.getActualDistanceFromStart()) {
-//                openList.remove(existingNode);
-//                openList2.remove(existingNode.hashCode());
-//                openList.add(n);
-//                openList2.put(n.hashCode(), n);
-//            }
-//        }
-//        else {
-//            openList.add(n);
-//            openList2.put(n.hashCode(), n);
-//        }
-//    }
 }
