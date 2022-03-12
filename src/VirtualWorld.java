@@ -108,27 +108,36 @@ public final class VirtualWorld extends PApplet
 
     private void setCrackedGroundBackground(Point pressed) {
 
-        Background cracked_ground = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+        Background cracked_bottom = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-bottom"));
-        Background cracked_ground_right = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+        Background cracked_right = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-right"));
-        Background cracked_ground_left = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+        Background cracked_left = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-left"));
-        Background cracked_ground_top = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+        Background cracked_top = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-top"));
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_ground_right);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_ground_left);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_ground_top);
+
+        Background cracked_lb = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-lb"));
+        Background cracked_rb = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-rb"));
+        Background cracked_lt = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-lt"));
+        Background cracked_rt = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-rt"));
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_right);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_left);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_bottom);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_top);
         //world.setBackground(new Point(pressed.getX() + 2, pressed.getY()), cracked_ground);
         //world.setBackground(new Point(pressed.getX() - 2, pressed.getY()), cracked_ground);
         //world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
         //world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
 
-       /* world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_ground);*/
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_rb);
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_rt);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_lb);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_lt);
     }
 
     private void addFireEntities(Point pressed) {

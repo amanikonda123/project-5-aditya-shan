@@ -43,6 +43,17 @@ cracked-ground-bottom images/goop-crack.png
 cracked-ground-top images/goop-crack-top.png
 cracked-ground-right images/goop-crack-right.png
 cracked-ground-left images/goop-crack-left.png
+cracked-ground-lb images/corner-crack-lb.png
+cracked-ground-rb images/corner-crack-rb.png
+cracked-ground-rt images/corner-crack-rt.png
+cracked-ground-lt images/corner-crack-lt.png
 fire images/frame_0_delay-0.1s.gif
 fire images/frame_1_delay-0.1s.gif
 fire images/frame_2_delay-0.1s.gif
+doctor images/doctor_0.png
+doctor images/doctor_1.png
+doctor images/doctor_2.png
+doctor images/doctor_3.png
+doctor images/doctor_4.png
+doctor images/doctor_5.png
+doctor images/doctor_6.png
