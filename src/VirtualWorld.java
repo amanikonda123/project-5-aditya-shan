@@ -91,10 +91,17 @@ public final class VirtualWorld extends PApplet
             Entity entity = entityOptional.get();
             System.out.println(entity.getId());
             //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
-        }
-        else {
+        } else {
             setCrackedGroundBackground(pressed);
-            addFireEntities(pressed);
+            //addFireEntities(pressed);
+            Meteor meteor = new Meteor(
+                    "meteor (" + pressed.getX() + " " + pressed.getY() + ")",
+                    pressed,
+                    this.imageStore.getImageList("meteor"),
+                    0,
+                    50
+            );
+            world.addEntity(meteor);
             scheduleActions(this.world, this.scheduler, this.imageStore);
         }
     }
@@ -102,20 +109,26 @@ public final class VirtualWorld extends PApplet
     private void setCrackedGroundBackground(Point pressed) {
 
         Background cracked_ground = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
-                imageStore.getImageList("cracked_ground"));
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_ground);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_ground);
+                imageStore.getImageList("cracked-ground-bottom"));
+        Background cracked_ground_right = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-right"));
+        Background cracked_ground_left = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-left"));
+        Background cracked_ground_top = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked-ground-top"));
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_ground_right);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_ground_left);
         world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() + 2, pressed.getY()), cracked_ground);
-        world.setBackground(new Point(pressed.getX() - 2, pressed.getY()), cracked_ground);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_ground_top);
+        //world.setBackground(new Point(pressed.getX() + 2, pressed.getY()), cracked_ground);
+        //world.setBackground(new Point(pressed.getX() - 2, pressed.getY()), cracked_ground);
+        //world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
+        //world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
 
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_ground);
+       /* world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_ground);
         world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_ground);
         world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_ground);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_ground);*/
     }
 
     private void addFireEntities(Point pressed) {

@@ -38,8 +38,11 @@ sapling images/sapling1.png
 sapling images/sapling2.png
 sapling images/sapling3.png
 sapling images/sapling4.png
-meteor images/meteor_fire.png
-cracked_ground images/img.png
+meteor images/goop-crater.png
+cracked-ground-bottom images/goop-crack.png
+cracked-ground-top images/goop-crack-top.png
+cracked-ground-right images/goop-crack-right.png
+cracked-ground-left images/goop-crack-left.png
 fire images/frame_0_delay-0.1s.gif
 fire images/frame_1_delay-0.1s.gif
 fire images/frame_2_delay-0.1s.gif
