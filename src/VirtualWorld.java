@@ -91,9 +91,10 @@ public final class VirtualWorld extends PApplet
             Entity entity = entityOptional.get();
             System.out.println(entity.getId());
             //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
-        } else {
+        }
+        else {
             setCrackedGroundBackground(pressed);
-            //addFireEntities(pressed);
+            addGooMonsterEntities(pressed);
             Meteor meteor = new Meteor(
                     "meteor (" + pressed.getX() + " " + pressed.getY() + ")",
                     pressed,
@@ -117,32 +118,27 @@ public final class VirtualWorld extends PApplet
         Background cracked_ground_top = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-top"));
         world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_ground_right);
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() + 1), cracked_ground_right);
         world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_ground_left);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_ground_left);
         world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_ground_top);
-        //world.setBackground(new Point(pressed.getX() + 2, pressed.getY()), cracked_ground);
-        //world.setBackground(new Point(pressed.getX() - 2, pressed.getY()), cracked_ground);
-        //world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
-        //world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
-
-       /* world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_ground);
         world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_ground);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_ground);*/
+        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_ground_top);
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_ground_top);
     }
 
-    private void addFireEntities(Point pressed) {
-        _addFireEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
-        _addFireEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
-        _addFireEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
-        _addFireEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
+    private void addGooMonsterEntities(Point pressed) {
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
     }
 
-    private void _addFireEntitiesHelper(Point curPos) {
+    private void _addGooMonsterEntitiesHelper(Point curPos) {
         if (!world.isOccupied(curPos)) {
-            world.addEntity(new Fire("fire-" + curPos.getX() + "-" + curPos.getY(),
+            world.addEntity(new Goo_Monster("goo_monster-" + curPos.getX() + "-" + curPos.getY(),
                     curPos,
-                    this.imageStore.getImageList("fire"),
+                    this.imageStore.getImageList("goo_monster"),
                     0));
         }
 }

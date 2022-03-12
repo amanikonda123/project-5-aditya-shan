@@ -46,3 +46,9 @@ cracked-ground-left images/goop-crack-left.png
 fire images/frame_0_delay-0.1s.gif
 fire images/frame_1_delay-0.1s.gif
 fire images/frame_2_delay-0.1s.gif
+goo_monster images/goo_monster_frame_0_delay-0.3s.gif
+goo_monster images/goo_monster_frame_1_delay-0.3s.gif
+goo_monster images/goo_monster_frame_2_delay-0.3s.gif
+goo_monster images/goo_monster_frame_3_delay-0.3s.gif
+goo_monster images/goo_monster_frame_4_delay-0.3s.gif
+goo_monster images/goo_monster_frame_5_delay-0.3s.gif

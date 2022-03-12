@@ -9,11 +9,11 @@ import java.util.*;
  */
 public final class WorldModel
 {
-    private int numRows;
-    private int numCols;
-    private Background background[][];
-    private Entity occupancy[][];
-    private Set<Entity> entities;
+    private final int numRows;
+    private final int numCols;
+    private final Background[][] background;
+    private final Entity[][] occupancy;
+    private final Set<Entity> entities;
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
