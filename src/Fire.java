@@ -8,6 +8,7 @@ public class Fire extends Obstacle {
 
     public Fire(String id, Point position, List<PImage> images, int imageIndex) {
         super(id, position, images, imageIndex, FIRE_ANIMATION_PERIOD);
+        //blah
     }
 
 
