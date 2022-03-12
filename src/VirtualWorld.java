@@ -92,8 +92,47 @@ public final class VirtualWorld extends PApplet
             System.out.println(entity.getId());
             //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
         }
-
+        else {
+            setCrackedGroundBackground(pressed);
+            addFireEntities(pressed);
+            scheduleActions(this.world, this.scheduler, this.imageStore);
+        }
     }
+
+    private void setCrackedGroundBackground(Point pressed) {
+
+        Background cracked_ground = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
+                imageStore.getImageList("cracked_ground"));
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_ground);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_ground);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_ground);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_ground);
+        world.setBackground(new Point(pressed.getX() + 2, pressed.getY()), cracked_ground);
+        world.setBackground(new Point(pressed.getX() - 2, pressed.getY()), cracked_ground);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
+
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_ground);
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_ground);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_ground);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_ground);
+    }
+
+    private void addFireEntities(Point pressed) {
+        _addFireEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
+        _addFireEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
+        _addFireEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
+        _addFireEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
+    }
+
+    private void _addFireEntitiesHelper(Point curPos) {
+        if (!world.isOccupied(curPos)) {
+            world.addEntity(new Fire("fire-" + curPos.getX() + "-" + curPos.getY(),
+                    curPos,
+                    this.imageStore.getImageList("fire"),
+                    0));
+        }
+}
 
     private Point mouseToPoint(int x, int y)
     {
@@ -194,7 +233,7 @@ public final class VirtualWorld extends PApplet
         }
     }
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
         parseCommandLine(args);
         PApplet.main(VirtualWorld.class);
     }
