@@ -13,7 +13,10 @@ public class Doctor extends MovableEntity {
 
     @Override
     protected boolean _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler) {
-        return false;
+
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
+        return true;
     }
 
     public void executeActivity(
@@ -27,7 +30,14 @@ public class Doctor extends MovableEntity {
         if (target.isPresent()){
             Point tgtPos = target.get().getPosition();
 
-            this.moveTo(world, target.get(), scheduler);
+            if(this.moveTo(world, target.get(), scheduler)){
+                Dude dudeNotFull = new DudeNotFull(this.getId(), tgtPos,
+                        imageStore.getImageList("dude"), 0, 5,
+                        6, 4, 0
+                );
+                world.addEntity(dudeNotFull);
+                dudeNotFull.scheduleActions(scheduler, world, imageStore);
+            }
             //((PoisonedDude)target.get()).transformIll(world, imageStore, tgtPos, scheduler);
 
 
