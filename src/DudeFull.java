@@ -51,4 +51,6 @@ public class DudeFull extends Dude {
                 this.getResourceLimit(),
                 this.getImages());
     }
+
+
 }

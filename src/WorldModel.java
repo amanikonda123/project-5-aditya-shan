@@ -177,4 +177,12 @@ public final class WorldModel
     public Set<Entity> getEntities() {
         return entities;
     }
+
+    public void transformIll(WorldModel world, ImageStore imageStore, Point pos, Dude target, EventScheduler scheduler){
+        world.removeEntity(target);
+        DudeNotFull dudeNotFull = (DudeNotFull) Functions.createDudeNotFull("dude_" + target.getId(), pos,
+                5, 6, 4, imageStore.getImageList("poisoned_dude"));
+        world.addEntity(dudeNotFull);
+        dudeNotFull.scheduleActions(scheduler, world, imageStore);
+    }
 }

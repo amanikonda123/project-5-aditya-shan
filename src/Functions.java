@@ -66,6 +66,14 @@ public final class Functions
     private static final int GOO_MONSTER_ANIMATION_PERIOD = 6;
     private static final int GOO_MONSTER_ACTION_PERIOD = 5;
 
+    private static final String DOCTOR_KEY = "doctor";
+    private static final int DOCTOR_NUM_PROPERTIES = 7;
+    private static final int DOCTOR_ID = 1;
+    private static final int DOCTOR_COL = 2;
+    private static final int DOCTOR_ROW = 3;
+    private static final int DOCTOR_ACTION_PERIOD = 5;
+    private static final int DOCTOR_ANIMATION_PERIOD = 6;
+
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 4;
     private static final int HOUSE_ID = 1;

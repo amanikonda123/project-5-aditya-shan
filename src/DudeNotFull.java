@@ -64,4 +64,14 @@ public class DudeNotFull extends Dude {
 
         return dudeFull;
     }
+
+    /*public void transformIll(WorldModel world, ImageStore imageStore, Point pos, EventScheduler scheduler){
+        world.removeEntity(this);
+        DudeNotFull dudeNotFull = new DudeNotFull(this.getId(), pos,
+                imageStore.getImageList("dude"), 0, 5,
+                6, 4, 0
+        );
+        world.addEntity(dudeNotFull);
+        dudeNotFull.scheduleActions(scheduler, world, imageStore);
+    }*/
 }
