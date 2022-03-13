@@ -140,18 +140,18 @@ public final class VirtualWorld extends PApplet
         world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_lt);
     }
 
-    private void addFireEntities(Point pressed) {
-        _addFireEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
-        _addFireEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
-        _addFireEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
-        _addFireEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
+    private void addGooMonsterEntities(Point pressed) {
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
     }
 
-    private void _addFireEntitiesHelper(Point curPos) {
+    private void _addGooMonsterEntitiesHelper(Point curPos) {
         if (!world.isOccupied(curPos)) {
-            world.addEntity(new Fire("fire-" + curPos.getX() + "-" + curPos.getY(),
+            world.addEntity(new Goo_Monster("goo_monster-" + curPos.getX() + "-" + curPos.getY(),
                     curPos,
-                    this.imageStore.getImageList("fire"),
+                    this.imageStore.getImageList("goo_monster"),
                     0));
         }
 }
