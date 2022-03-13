@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.awt.*;
 import java.util.List;
 
 public abstract class Dude extends MovableEntity implements TransformableEntity {
@@ -26,7 +27,7 @@ public abstract class Dude extends MovableEntity implements TransformableEntity 
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore) {
-        Entity dude = _transformHelper();
+        Entity dude = _transformHelper(imageStore);
         if (dude != null) {
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
@@ -39,7 +40,7 @@ public abstract class Dude extends MovableEntity implements TransformableEntity 
         return false;
     }
 
-    protected abstract Entity _transformHelper();
+    protected abstract Entity _transformHelper(ImageStore imageStore);
 
     protected int getResourceLimit() {
         return this.resourceLimit;

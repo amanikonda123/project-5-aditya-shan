@@ -5,18 +5,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class DudeFull extends Dude {
+public class PoisonedDude extends Dude {
 
-    public DudeFull(
+    public PoisonedDude(
             String id,
             Point position,
             List<PImage> images,
             int imageIndex,
             int animationPeriod,
-            int actionPeriod,
-            int resourceLimit)
+            int actionPeriod)
     {
-        super(id, position, images, imageIndex, animationPeriod, actionPeriod, resourceLimit);
+        super(id, position, images, imageIndex, animationPeriod, actionPeriod, 0);
     }
 
     public void executeActivity(
@@ -24,11 +23,11 @@ public class DudeFull extends Dude {
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Optional<Entity> fullTarget =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(House.class)));
+        Optional<Entity> target =
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Fairy.class)));
 
-        if (fullTarget.isPresent() && this.moveTo(world,
-                fullTarget.get(), scheduler))
+        if (target.isPresent() && this.moveTo(world,
+                target.get(), scheduler))
         {
             this.transform(world, scheduler, imageStore);
         }
@@ -45,10 +44,17 @@ public class DudeFull extends Dude {
     }
 
     protected Entity _transformHelper(ImageStore imageStore) {
-        return Functions.createDudeNotFull(this.getId(),
-                this.getPosition(), this.getActionPeriod(),
-                this.getAnimationPeriod(),
-                this.getResourceLimit(),
-                this.getImages());
+//        return Functions.createDudeNotFull(this.getId(),
+//                this.getPosition(), this.getActionPeriod(),
+//                this.getAnimationPeriod(),
+//                this.getResourceLimit(),
+//                this.getImages());
+
+        return new PoisonedDude("poisoned_dude_" + this.getId(),
+                this.getPosition(),
+                imageStore.getImageList("poisoned_dude"),
+                0,
+                4,
+                4);
     }
 }

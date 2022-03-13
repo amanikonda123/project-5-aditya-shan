@@ -93,7 +93,7 @@ public final class VirtualWorld extends PApplet
             //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
         } else {
             setCrackedGroundBackground(pressed);
-            //addFireEntities(pressed);
+            addGooMonsterEntities(pressed);
             Meteor meteor = new Meteor(
                     "meteor (" + pressed.getX() + " " + pressed.getY() + ")",
                     pressed,
@@ -102,7 +102,6 @@ public final class VirtualWorld extends PApplet
                     50
             );
             world.addEntity(meteor);
-            scheduleActions(this.world, this.scheduler, this.imageStore);
         }
     }
 
@@ -118,13 +117,13 @@ public final class VirtualWorld extends PApplet
                 imageStore.getImageList("cracked-ground-top"));
 
         Background cracked_lb = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
-                imageStore.getImageList("cracked-ground-lb"));
+                imageStore.getImageList("cracked_ground_lb"));
         Background cracked_rb = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
-                imageStore.getImageList("cracked-ground-rb"));
+                imageStore.getImageList("cracked_ground_rb"));
         Background cracked_lt = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
-                imageStore.getImageList("cracked-ground-lt"));
+                imageStore.getImageList("cracked_ground_lt"));
         Background cracked_rt = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
-                imageStore.getImageList("cracked-ground-rt"));
+                imageStore.getImageList("cracked_ground_rt"));
         world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_right);
         world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_left);
         world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_bottom);
@@ -134,25 +133,30 @@ public final class VirtualWorld extends PApplet
         //world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
         //world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
 
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_rb);
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_rt);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_lb);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_lt);
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_lt);
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_lb);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() + 1), cracked_rt);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_rb);
     }
 
     private void addGooMonsterEntities(Point pressed) {
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
+        _addGooMonsterEntitiesHelper(new Point(pressed.getX(), pressed.getY() + 1));
+//        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
+//        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
+//        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
+//        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));
     }
 
     private void _addGooMonsterEntitiesHelper(Point curPos) {
         if (!world.isOccupied(curPos)) {
-            world.addEntity(new Goo_Monster("goo_monster-" + curPos.getX() + "-" + curPos.getY(),
+            Goo_Monster monster = new Goo_Monster("goo_monster_" + curPos.getX() + "-" + curPos.getY(),
                     curPos,
                     this.imageStore.getImageList("goo_monster"),
-                    0));
+                    0,
+                    5,
+                    6);
+            world.addEntity(monster);
+            monster.scheduleActions(scheduler, world, imageStore);
         }
 }
 

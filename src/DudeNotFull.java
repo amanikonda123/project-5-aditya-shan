@@ -52,7 +52,7 @@ public class DudeNotFull extends Dude {
         return true;
     }
 
-    protected Entity _transformHelper() {
+    protected Entity _transformHelper(ImageStore imageStore) {
         Entity dudeFull = null;
         if (this.resourceCount >= this.getResourceLimit()) {
             dudeFull = Functions.createDudeFull(this.getId(),

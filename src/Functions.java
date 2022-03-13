@@ -49,6 +49,23 @@ public final class Functions
     private static final int DUDE_ACTION_PERIOD = 5;
     private static final int DUDE_ANIMATION_PERIOD = 6;
 
+    public static final String POISONED_DUDE_KEY = "poisoned_dude";
+    private static final int POISONED_DUDE_NUM_PROPERTIES = 7;
+    private static final int POISONED_DUDE_ID = 1;
+    private static final int POISONED_DUDE_COL = 2;
+    private static final int POISONED_DUDE_ROW = 3;
+    private static final int POISONED_DUDE_LIMIT = 4;
+    public static final int POISONED_DUDE_ACTION_PERIOD = 5;
+    public static final int POISONED_DUDE_ANIMATION_PERIOD = 6;
+
+    private static final String GOO_MONSTER_KEY = "goo_monster";
+    private static final int GOO_MONSTER_NUM_PROPERTIES = 6;
+    private static final int GOO_MONSTER_ID = 1;
+    private static final int GOO_MONSTER_COL = 2;
+    private static final int GOO_MONSTER_ROW = 3;
+    private static final int GOO_MONSTER_ANIMATION_PERIOD = 6;
+    private static final int GOO_MONSTER_ACTION_PERIOD = 5;
+
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 4;
     private static final int HOUSE_ID = 1;
@@ -396,5 +413,25 @@ public final class Functions
             int resourceLimit,
             List<PImage> images) {
         return new DudeFull(id, position, images, 0, animationPeriod, actionPeriod, resourceLimit);
+    }
+
+    public static Entity createGooMonster(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new Goo_Monster(id, position, images, 0, animationPeriod, actionPeriod);
+    }
+
+    public static Entity createPoisonedDude(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new DudeNotFull(id, position, images, 0, 6, 5, 0, 0);
     }
 }

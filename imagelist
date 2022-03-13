@@ -63,3 +63,7 @@ doctor images/doctor_3.png
 doctor images/doctor_4.png
 doctor images/doctor_5.png
 doctor images/doctor_6.png
+cracked_ground_lt images/corner-crack-rb.png
+cracked_ground_lb images/corner-crack-rt.png
+cracked_ground_rt images/corner-crack-lb.png
+cracked_ground_rb images/corner-crack-lt.png
