@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -94,8 +96,8 @@ public final class VirtualWorld extends PApplet
         } else {
             setCrackedGroundBackground(pressed);
             Point pt = new Point(32, 5);
-            Hospital entity = new Hospital("hospital", pt, this.imageStore.getImageList("hospital"), 0);
-            world.addEntity(entity);
+            Hospital hospital = new Hospital("hospital", pt, this.imageStore.getImageList("hospital"), 0);
+            world.addEntity(hospital);
             addGooMonsterEntities(pressed);
             Meteor meteor = new Meteor(
                     "meteor (" + pressed.getX() + " " + pressed.getY() + ")",
@@ -107,7 +109,7 @@ public final class VirtualWorld extends PApplet
             );
             Doctor doctor = new Doctor(
                     "doctor (" + pressed.getX() + " " + pressed.getY() + ")",
-                    pressed,
+                    new Point(32, 5),
                     this.imageStore.getImageList("doctor"),
                     0,
                     4,
@@ -168,7 +170,7 @@ public final class VirtualWorld extends PApplet
                     this.imageStore.getImageList("goo_monster"),
                     0,
                     5,
-                    500));
+                    400));
         }
 }
 

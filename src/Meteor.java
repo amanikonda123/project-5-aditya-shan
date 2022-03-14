@@ -25,7 +25,7 @@ public class Meteor extends ExecutableEntity{
                     imageStore.getImageList("goo_monster"),
                     0,
                     5,
-                    500);
+                    400);
             world.addEntity(monster);
             monster.scheduleActions(scheduler, world, imageStore);
         }

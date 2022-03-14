@@ -53,8 +53,8 @@ public class Goo_Monster extends MovableEntity {
                         tgtPos,
                         imageStore.getImageList("poisoned_dude"),
                         0,
-                        6,
-                        1000);
+                        300,
+                        600);
 
                 world.addEntity(poisonedDude);
                 ((Dude) poisonedDude).scheduleActions(scheduler, world, imageStore);

@@ -35,8 +35,8 @@ public class Doctor extends MovableEntity {
 
             if(this.moveTo(world, target.get(), scheduler)){
                 Dude dudeNotFull = new DudeNotFull(this.getId(), tgtPos,
-                        imageStore.getImageList("dude"), 0, 6,
-                        5, 4, 0
+                        imageStore.getImageList("dude"), 0, 100,
+                        848, 4, 0
                 );
                 world.addEntity(dudeNotFull);
                 dudeNotFull.scheduleActions(scheduler, world, imageStore);
@@ -47,7 +47,6 @@ public class Doctor extends MovableEntity {
         }else {
             Optional<Entity> home =
                     world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Hospital.class)));
-            Point cords = home.get().getPosition();
             this.moveTo(world, home.get(), scheduler);
         }
         super.executeActivity(world, imageStore, scheduler);
