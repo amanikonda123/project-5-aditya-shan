@@ -18,25 +18,6 @@ public class Goo_Monster extends MovableEntity {
         super(id, position, images, imageIndex, animationPeriod, actionPeriod);
     }
 
-//    public void executeActivity(
-//            WorldModel world,
-//            ImageStore imageStore,
-//            EventScheduler scheduler)
-//    {
-//        Optional<Entity> fullTarget =
-//                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(DudeFull.class, DudeNotFull.class)));
-//
-//        if (fullTarget.isPresent() && this.moveTo(world,
-//                fullTarget.get(), scheduler))
-//        {
-//            super.executeActivity(world, imageStore, scheduler);
-//            //this.transform(world, scheduler, imageStore);
-//        }
-//        else {
-//            super.executeActivity(world, imageStore, scheduler);
-//        }
-//    }
-
     public void executeActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -51,10 +32,10 @@ public class Goo_Monster extends MovableEntity {
             if (this.moveTo(world, monsterTarget.get(), scheduler)) {
                 Entity poisonedDude = new PoisonedDude("poisoned_dude_" + this.getId(),
                         tgtPos,
-                        imageStore.getImageList("poisoned_dude"),
+                        imageStore.getImageList(Functions.POISONED_DUDE_KEY),
                         0,
-                        300,
-                        600);
+                        Functions.POISONED_DUDE_ANIMATION_PERIOD,
+                        Functions.POISONED_DUDE_ACTION_PERIOD);
 
                 world.addEntity(poisonedDude);
                 ((Dude) poisonedDude).scheduleActions(scheduler, world, imageStore);
@@ -71,17 +52,10 @@ public class Goo_Monster extends MovableEntity {
                                     Entity target,
                                     EventScheduler scheduler)
     {
-        /*PoisonedDude poisonedDude = new PoisonedDude("poisoned_dude_" + target.getPosition().getX() + "-" + target.getPosition().getY(),
-                target.getPosition(),
-                this.getImages(),
-                0,
-                5,
-                5);*/
         world.removeEntity(target);
         scheduler.unscheduleAllEvents(target);
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
-        /*world.addEntity(poisonedDude);*/
         return true;
     }
 

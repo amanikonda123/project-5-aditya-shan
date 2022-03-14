@@ -1,10 +1,13 @@
-To trigger the world even, the user must click in area where there are no current entities(trees, dudes, etc.). When the
-world event is triggered, a meteor should spawn that creates a crater as well as spawns a goo monster entity whose job
-is to target nearest Dude entity and infect them. Triggering this even will also spawn a hospital with a doctor in it,
-the doctor entities job is to seek out Dude entities who have been infected by the goop monster. The infected Dude
-entities(aka Poisoned Dudes) will target fairies and try to kill them. The goo monster will disappear once it has
-infected a Dude entity, however, if there are no more infected dudes or goop monster the meteor will unleash another
-monster to target the dudes. The more meteors spawned also leads to more doctors being spawned in the hospital to keep
-game balanced. Aditya was responsible for developing the functionality of the goo monster entity and poisoned dude
-entity, as well as designing the sprites for them. Shantanu was responsible for developing the functionality of the
-meteor entity and the doctor entity.
+To trigger the world event, the user must click in area where there are no current entities (trees, dudes, etc.). When the
+world event is triggered, a meteor should spawn that creates a crater that releases purple goo onto the surrounding background.
+The crater will also spawn a Goo Monster entity whose job is to target nearest Dude entity and infect them. Triggering this
+event will also spawn a Hospital with a Doctor by it. The Doctor entities' job is to seek out Dude entities who have been poisoned
+by the goo monster. The Poisoned Dude entities will target Fairies and will try to kill them. If there are no more Fairies remaining
+in the world, then the Poisoned Dudes will go to the Hospital to try to get cured. The Goo Monster will then disappear
+once it has infected a Dude entity, however, if there are no Poisoned Dudes in the world, the Meteor crater will unleash another
+Goo Monster to target the Dudes. With every Meteor that spawns, a new Doctor will spawn from the Hospital to try to keep up
+with the amount of Poisoned Dudes that would be in the game.
+
+Aditya was responsible for developing the functionality of the Goo Monster entity and Poisoned Dude
+entity, as well as designing all the sprites. Shantanu was responsible for developing the functionality of the
+Meteor entity, the Doctor entity, and the Hospital entity.

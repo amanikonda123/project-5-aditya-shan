@@ -7,13 +7,18 @@ import java.util.Optional;
 
 public class Doctor extends MovableEntity {
 
-    public Doctor(String id, Point position, List<PImage> images, int imageIndex, int animationPeriod, int actionPeriod) {
+    public Doctor(String id,
+                  Point position,
+                  List<PImage> images,
+                  int imageIndex,
+                  int animationPeriod,
+                  int actionPeriod)
+    {
         super(id, position, images, imageIndex, animationPeriod, actionPeriod);
     }
 
-    @Override
     protected boolean _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler) {
-        if(target instanceof Hospital){
+        if (target instanceof Hospital){
             return true;
         }else {
             world.removeEntity(target);
@@ -40,8 +45,6 @@ public class Doctor extends MovableEntity {
                 );
                 world.addEntity(dudeNotFull);
                 dudeNotFull.scheduleActions(scheduler, world, imageStore);
-//                world.removeEntity(this);
-//                scheduler.unscheduleAllEvents(this);
             }
 
         }else {

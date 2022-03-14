@@ -30,8 +30,14 @@ public class PoisonedDude extends Dude {
                 target.get(), scheduler))
         {
             this.transform(world, scheduler, imageStore);
+            world.removeEntity(target.get());
         }
         else {
+            if (!target.isPresent()) {
+                Optional<Entity> house =
+                        world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Hospital.class)));
+                this.moveTo(world, house.get(), scheduler);
+            }
             super.executeActivity(world, imageStore, scheduler);
         }
     }
@@ -40,31 +46,21 @@ public class PoisonedDude extends Dude {
                                     Entity target,
                                     EventScheduler scheduler)
     {
-        return true;
+        if (target instanceof Hospital){
+            return true;
+        }else {
+            world.removeEntity(target);
+            scheduler.unscheduleAllEvents(target);
+            return true;
+        }
     }
 
     protected Entity _transformHelper(ImageStore imageStore) {
-//        return Functions.createDudeNotFull(this.getId(),
-//                this.getPosition(), this.getActionPeriod(),
-//                this.getAnimationPeriod(),
-//                this.getResourceLimit(),
-//                this.getImages());
-
-        return new PoisonedDude("poisoned_dude_" + this.getId(),
+        return new PoisonedDude(this.getId(),
                 this.getPosition(),
-                imageStore.getImageList("poisoned_dude"),
+                imageStore.getImageList(Functions.POISONED_DUDE_KEY),
                 0,
-                4,
-                4);
-    }
-
-    public void transformIll(WorldModel world, ImageStore imageStore, Point pos, EventScheduler scheduler){
-        world.removeEntity(this);
-        DudeNotFull dudeNotFull = new DudeNotFull(this.getId(), pos,
-                imageStore.getImageList("dude"), 0, 5,
-                6, 4, 0
-        );
-        world.addEntity(dudeNotFull);
-        dudeNotFull.scheduleActions(scheduler, world, imageStore);
+                Functions.POISONED_DUDE_ANIMATION_PERIOD,
+                Functions.POISONED_DUDE_ACTION_PERIOD);
     }
 }

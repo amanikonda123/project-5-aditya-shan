@@ -1,8 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -38,6 +35,21 @@ public final class VirtualWorld extends PApplet
     private static final double FASTEST_SCALE = 0.10;
 
     private static double timeScale = 1.0;
+
+    public static final String GOO_MONSTER_KEY = "goo_monster";
+    public static final int GOO_MONSTER_ANIMATION_PERIOD = 100;
+    public static final int GOO_MONSTER_ACTION_PERIOD = 250;
+
+    private static final String METEOR_KEY = "meteor";
+    private static final int METEOR_ANIMATION_PERIOD = 0;
+    private static final int METEOR_ACTION_PERIOD = 0;
+
+    private static final String DOCTOR_KEY = "doctor";
+    private static final int DOCTOR_ANIMATION_PERIOD = 100;
+    private static final int DOCTOR_ACTION_PERIOD = 400;
+
+    private static final String HOSPITAL_KEY = "hospital";
+    private static final Point HOSPITAL_LOCATION = new Point(30, 14);
 
     private ImageStore imageStore;
     private WorldModel world;
@@ -95,29 +107,11 @@ public final class VirtualWorld extends PApplet
             //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
         } else {
             setCrackedGroundBackground(pressed);
-            Point pt = new Point(32, 5);
-            Hospital hospital = new Hospital("hospital", pt, this.imageStore.getImageList("hospital"), 0);
-            world.addEntity(hospital);
-            addGooMonsterEntities(pressed);
-            Meteor meteor = new Meteor(
-                    "meteor (" + pressed.getX() + " " + pressed.getY() + ")",
-                    pressed,
-                    this.imageStore.getImageList("meteor"),
-                    0,
-                    0,
-                    0
-            );
-            Doctor doctor = new Doctor(
-                    "doctor (" + pressed.getX() + " " + pressed.getY() + ")",
-                    new Point(32, 5),
-                    this.imageStore.getImageList("doctor"),
-                    0,
-                    4,
-                    300
-            );
-            world.addEntity(doctor);
-            world.addEntity(meteor);
-            addGooMonsterEntities(pressed);
+            addHospital(pressed);
+            addGooMonsterEntity(pressed);
+            addMeteorEntity(pressed);
+            addDoctorEntity(pressed);
+            addGooMonsterEntity(pressed);
             scheduleActions(this.world, this.scheduler, this.imageStore);
         }
     }
@@ -133,6 +127,11 @@ public final class VirtualWorld extends PApplet
         Background cracked_top = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-top"));
 
+        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_right);
+        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_left);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_bottom);
+        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_top);
+
         Background cracked_lb = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-lb"));
         Background cracked_rb = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
@@ -141,14 +140,6 @@ public final class VirtualWorld extends PApplet
                 imageStore.getImageList("cracked-ground-lt"));
         Background cracked_rt = new Background("cracked_ground-" + pressed.getX() + "-" + pressed.getY(),
                 imageStore.getImageList("cracked-ground-rt"));
-        world.setBackground(new Point(pressed.getX() + 1, pressed.getY()), cracked_right);
-        world.setBackground(new Point(pressed.getX() - 1, pressed.getY()), cracked_left);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() + 1), cracked_bottom);
-        world.setBackground(new Point(pressed.getX(), pressed.getY() - 1), cracked_top);
-        //world.setBackground(new Point(pressed.getX() + 2, pressed.getY()), cracked_ground);
-        //world.setBackground(new Point(pressed.getX() - 2, pressed.getY()), cracked_ground);
-        //world.setBackground(new Point(pressed.getX(), pressed.getY() + 2), cracked_ground);
-        //world.setBackground(new Point(pressed.getX(), pressed.getY() - 2), cracked_ground);
 
         world.setBackground(new Point(pressed.getX() + 1, pressed.getY()  + 1), cracked_rb);
         world.setBackground(new Point(pressed.getX() + 1, pressed.getY() - 1), cracked_rt);
@@ -156,23 +147,55 @@ public final class VirtualWorld extends PApplet
         world.setBackground(new Point(pressed.getX() - 1, pressed.getY() - 1), cracked_lt);
     }
 
-    private void addGooMonsterEntities(Point pressed) {
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() + 1));
-        /*_addGooMonsterEntitiesHelper(new Point(pressed.getX() + 1, pressed.getY() - 1));
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() + 1));
-        _addGooMonsterEntitiesHelper(new Point(pressed.getX() - 1, pressed.getY() - 1));*/
+    private void addHospital(Point pressed) {
+        Hospital hospital = new Hospital("hospital_" + pressed.getX() + "_" + pressed.getY(),
+                HOSPITAL_LOCATION,
+                this.imageStore.getImageList(HOSPITAL_KEY),
+                0);
+        world.addEntity(hospital);
     }
 
-    private void _addGooMonsterEntitiesHelper(Point curPos) {
+    private void addGooMonsterEntity(Point pressed) {
+        Point curPos = new Point(pressed.getX(), pressed.getY() + 1);
         if (!world.isOccupied(curPos)) {
-            world.addEntity(new Goo_Monster("goo_monster-" + curPos.getX() + "-" + curPos.getY(),
+            Goo_Monster goo_monster = new Goo_Monster("goo_monster_" + curPos.getX() + "_" + curPos.getY(),
                     curPos,
-                    this.imageStore.getImageList("goo_monster"),
+                    this.imageStore.getImageList(GOO_MONSTER_KEY),
                     0,
-                    5,
-                    400));
+                    GOO_MONSTER_ANIMATION_PERIOD,
+                    GOO_MONSTER_ACTION_PERIOD);
+            world.addEntity(goo_monster);
+            //goo_monster.scheduleActions(scheduler, world, imageStore);
         }
-}
+    }
+
+    private void addMeteorEntity(Point pressed) {
+        if (!world.isOccupied(pressed)) {
+            Meteor meteor = new Meteor(
+                    "meteor_" + pressed.getX() + "_" + pressed.getY(),
+                    pressed,
+                    this.imageStore.getImageList(METEOR_KEY),
+                    0,
+                    METEOR_ANIMATION_PERIOD,
+                    METEOR_ACTION_PERIOD
+            );
+            world.addEntity(meteor);
+            //meteor.scheduleActions(scheduler, world, imageStore);
+        }
+    }
+
+    private void addDoctorEntity(Point pressed) {
+        Doctor doctor = new Doctor(
+                "doctor_" + pressed.getX() + "_" + pressed.getY(),
+                new Point(32, 5),
+                this.imageStore.getImageList(DOCTOR_KEY),
+                0,
+                DOCTOR_ANIMATION_PERIOD,
+                DOCTOR_ACTION_PERIOD
+        );
+        world.addEntity(doctor);
+        //doctor.scheduleActions(scheduler, world, imageStore);
+    }
 
     private Point mouseToPoint(int x, int y)
     {
