@@ -93,11 +93,15 @@ public final class VirtualWorld extends PApplet
             //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
         } else {
             setCrackedGroundBackground(pressed);
+            Point pt = new Point(32, 5);
+            Hospital entity = new Hospital("hospital", pt, this.imageStore.getImageList("hospital"), 0);
+            world.addEntity(entity);
             addGooMonsterEntities(pressed);
             Meteor meteor = new Meteor(
                     "meteor (" + pressed.getX() + " " + pressed.getY() + ")",
                     pressed,
                     this.imageStore.getImageList("meteor"),
+                    0,
                     0,
                     0
             );
@@ -107,7 +111,7 @@ public final class VirtualWorld extends PApplet
                     this.imageStore.getImageList("doctor"),
                     0,
                     4,
-                    5
+                    300
             );
             world.addEntity(doctor);
             world.addEntity(meteor);
@@ -164,7 +168,7 @@ public final class VirtualWorld extends PApplet
                     this.imageStore.getImageList("goo_monster"),
                     0,
                     5,
-                    6));
+                    500));
         }
 }
 

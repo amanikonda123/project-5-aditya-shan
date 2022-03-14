@@ -13,10 +13,13 @@ public class Doctor extends MovableEntity {
 
     @Override
     protected boolean _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler) {
-
-        world.removeEntity(target);
-        scheduler.unscheduleAllEvents(target);
-        return true;
+        if(target instanceof Hospital){
+            return true;
+        }else {
+            world.removeEntity(target);
+            scheduler.unscheduleAllEvents(target);
+            return true;
+        }
     }
 
     public void executeActivity(
@@ -32,15 +35,20 @@ public class Doctor extends MovableEntity {
 
             if(this.moveTo(world, target.get(), scheduler)){
                 Dude dudeNotFull = new DudeNotFull(this.getId(), tgtPos,
-                        imageStore.getImageList("dude"), 0, 5,
-                        6, 4, 0
+                        imageStore.getImageList("dude"), 0, 6,
+                        5, 4, 0
                 );
                 world.addEntity(dudeNotFull);
                 dudeNotFull.scheduleActions(scheduler, world, imageStore);
+//                world.removeEntity(this);
+//                scheduler.unscheduleAllEvents(this);
             }
-            //((PoisonedDude)target.get()).transformIll(world, imageStore, tgtPos, scheduler);
 
-
+        }else {
+            Optional<Entity> home =
+                    world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Hospital.class)));
+            Point cords = home.get().getPosition();
+            this.moveTo(world, home.get(), scheduler);
         }
         super.executeActivity(world, imageStore, scheduler);
     }
