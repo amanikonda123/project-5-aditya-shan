@@ -54,7 +54,7 @@ public class Goo_Monster extends MovableEntity {
                         imageStore.getImageList("poisoned_dude"),
                         0,
                         6,
-                        5);
+                        1000);
 
                 world.addEntity(poisonedDude);
                 ((Dude) poisonedDude).scheduleActions(scheduler, world, imageStore);
@@ -71,17 +71,17 @@ public class Goo_Monster extends MovableEntity {
                                     Entity target,
                                     EventScheduler scheduler)
     {
-        PoisonedDude poisonedDude = new PoisonedDude("poisoned_dude_" + target.getPosition().getX() + "-" + target.getPosition().getY(),
+        /*PoisonedDude poisonedDude = new PoisonedDude("poisoned_dude_" + target.getPosition().getX() + "-" + target.getPosition().getY(),
                 target.getPosition(),
                 this.getImages(),
                 0,
                 5,
-                5);
+                5);*/
         world.removeEntity(target);
         scheduler.unscheduleAllEvents(target);
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
-        world.addEntity(poisonedDude);
+        /*world.addEntity(poisonedDude);*/
         return true;
     }
 

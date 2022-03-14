@@ -99,7 +99,7 @@ public final class VirtualWorld extends PApplet
                     pressed,
                     this.imageStore.getImageList("meteor"),
                     0,
-                    50
+                    0
             );
             Doctor doctor = new Doctor(
                     "doctor (" + pressed.getX() + " " + pressed.getY() + ")",
@@ -107,7 +107,7 @@ public final class VirtualWorld extends PApplet
                     this.imageStore.getImageList("doctor"),
                     0,
                     4,
-                    3
+                    5
             );
             world.addEntity(doctor);
             world.addEntity(meteor);
