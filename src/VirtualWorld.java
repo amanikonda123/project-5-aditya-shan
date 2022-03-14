@@ -187,7 +187,7 @@ public final class VirtualWorld extends PApplet
     private void addDoctorEntity(Point pressed) {
         Doctor doctor = new Doctor(
                 "doctor_" + pressed.getX() + "_" + pressed.getY(),
-                new Point(32, 5),
+                HOSPITAL_LOCATION,
                 this.imageStore.getImageList(DOCTOR_KEY),
                 0,
                 DOCTOR_ANIMATION_PERIOD,

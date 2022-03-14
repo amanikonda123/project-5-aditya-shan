@@ -34,9 +34,9 @@ public class PoisonedDude extends Dude {
         }
         else {
             if (!target.isPresent()) {
-                Optional<Entity> house =
+                Optional<Entity> hospital =
                         world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Hospital.class)));
-                this.moveTo(world, house.get(), scheduler);
+                this.moveTo(world, hospital.get(), scheduler);
             }
             super.executeActivity(world, imageStore, scheduler);
         }
@@ -48,7 +48,7 @@ public class PoisonedDude extends Dude {
     {
         if (target instanceof Hospital){
             return true;
-        }else {
+        } else {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;

@@ -41,7 +41,6 @@ public class Goo_Monster extends MovableEntity {
                 ((Dude) poisonedDude).scheduleActions(scheduler, world, imageStore);
                 world.removeEntity(this);
                 scheduler.unscheduleAllEvents(this);
-
             }
         }
 
