@@ -1,0 +1,10 @@
+To trigger the world even, the user must click in area where there are no current entities(trees, dudes, etc.). When the
+world event is triggered, a meteor should spawn that creates a crater as well as spawns a goo monster entity whose job
+is to target nearest Dude entity and infect them. Triggering this even will also spawn a hospital with a doctor in it,
+the doctor entities job is to seek out Dude entities who have been infected by the goop monster. The infected Dude
+entities(aka Poisoned Dudes) will target fairies and try to kill them. The goo monster will disappear once it has
+infected a Dude entity, however, if there are no more infected dudes or goop monster the meteor will unleash another
+monster to target the dudes. The more meteors spawned also leads to more doctors being spawned in the hospital to keep
+game balanced. Aditya was responsible for developing the functionality of the goo monster entity and poisoned dude
+entity, as well as designing the sprites for them. Shantanu was responsible for developing the functionality of the
+meteor entity and the doctor entity.
